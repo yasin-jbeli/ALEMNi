@@ -1,0 +1,16 @@
+<!-- course_materials.html -->
+<h1>{{ course.title }}</h1>
+
+<ul>
+    {% for material in materials %}
+        <li>{{ material.title }} - {{ material.content }}</li>
+    {% endfor %}
+</ul>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="title" placeholder="Title"><br>
+    <textarea name="content" placeholder="Content"></textarea><br>
+    <input type="text" name="document_type" placeholder="Document Type"><br>
+    <input type="submit" value="Add Material">
+</form>

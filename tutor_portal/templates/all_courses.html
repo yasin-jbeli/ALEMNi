@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Courses</title>
+</head>
+<body>
+    <h1>All Courses</h1>
+    <ul>
+        {% for course in courses %}
+            <li>{{ course.title }} - {{ course.description }}</li>
+            <!-- Display other course details as needed -->
+        {% endfor %}
+    </ul>
+</body>
+</html>
