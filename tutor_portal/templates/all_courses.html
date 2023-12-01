@@ -7,9 +7,14 @@
     <h1>All Courses</h1>
     <ul>
         {% for course in courses %}
-            <li>{{ course.title }} - {{ course.description }}</li>
-            <!-- Display other course details as needed -->
+            <li>
+                {{ course.title }} - {{ course.description }}
+                <a href="{% url 'delete_course' course.courseId %}">Delete</a>
+                <a href="{% url 'modify_course' course.courseId %}">Modify</a>
+                <a href="{% url 'enter_course' course.courseId %}">Enter Course</a>
+            </li>
         {% endfor %}
     </ul>
+    <a href="{% url 'show_form' %}"><button>Add Course</button></a>
 </body>
 </html>

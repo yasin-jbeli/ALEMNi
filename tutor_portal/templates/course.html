@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enter Course</title>
+</head>
+<body>
+    <h1>Welcome to "{{ course.title }}"</h1>
+    <p>{{ course.description }}</p>
+    
+    <h2>Materials:</h2>
+    <ul>
+        {% for material in course.material_set.all %}
+            <li>
+                <h3>{{ material.title }}</h3>
+                <p>{{ material.content }}</p>
+                <p>Document Type: {{ material.documentType }}</p>
+                <!-- Add any other material-related information -->
+            </li>
+        {% empty %}
+            <p>No materials available for this course.</p>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'add_material' course.courseId %}">Add Material</a>
+</body>
+</html>

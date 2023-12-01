@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from .models import Course, Material
+from .forms import CourseForm
 
 def about(request):
     return HttpResponse("This is the about page of the API.")
@@ -19,7 +20,7 @@ def submit_Course(request):
         title = request.POST.get('title')
         description = request.POST.get('description')
         enrollmentCapacity = request.POST.get('enrollmentCapacity')
-        tutor_id = request.user.id  # Assuming the logged-in user is the tutor
+        tutor_id = request.userId  # Assuming the logged-in user is the tutor
         # Create a new Course object and save it to the database
         new_course = Course(title=title, description=description, enrollmentCapacity=enrollmentCapacity, tutor_id=tutor_id)
         new_course.save()
@@ -60,3 +61,62 @@ def all_courses(request):
 
 def home(request):
     return render(request, 'home.html')
+
+def delete_course(request, course_id):
+    course = get_object_or_404(Course, pk=course_id)
+    course.delete()
+    return redirect('all_courses')
+
+def all_courses(request):
+    courses = Course.objects.all()  # Retrieve all courses
+    
+    # Filter out courses without valid primary keys
+    valid_courses = [course for course in courses if course.courseId is not None]
+
+    context = {
+        'courses': valid_courses  # Pass the valid courses to the template
+    }
+    return render(request, 'all_courses.html', context)
+
+from django.shortcuts import redirect
+
+def modify_course(request, courseId):
+    course = get_object_or_404(Course, pk=courseId)
+    
+    if request.method == 'POST':
+        form = CourseForm(request.POST, instance=course)
+        if form.is_valid():
+            form.save()
+            # Redirect to course.html upon successful modification
+            return redirect('enter_course', courseId=courseId)  # Replace 'course_details' with your actual URL name
+        
+    else:
+        form = CourseForm(instance=course)
+    
+    return render(request, 'modify.html', {'form': form})
+
+
+def enter_course(request, courseId):
+    course = get_object_or_404(Course, pk=courseId)
+    # Perform actions related to entering the course
+    return render(request, 'course.html', {'course': course})
+
+def add_material(request, courseId):
+    course = get_object_or_404(Course, pk=courseId)
+
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        document_type = request.POST.get('documentType')
+
+        material = Material(
+            course=course,
+            title=title,
+            content=content,
+            documentType=document_type
+        )
+        material.save()
+
+        return redirect('enter_course', courseId=courseId)
+
+    return render(request, 'add_material.html', {'course': course})
