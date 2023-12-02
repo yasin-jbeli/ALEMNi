@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Material Detail</title>
+</head>
+<body>
+    <h1>Material Detail</h1>
+    <h2>Title: {{ material.title }}</h2>
+    <p>Content: {{ material.content }}</p>
+    <p>Document Type: {{ material.documentType }}</p>
+    <!-- Add any other material details you want to display -->
+    
+    <!-- Modify and Back buttons -->
+    <a href="{% url 'modify_material' materialId=material.materialId %}">Modify Material</a>
+    <a href="{% url 'enter_course' courseId=material.course.courseId %}">Back to Course</a>
+</body>
+</html>

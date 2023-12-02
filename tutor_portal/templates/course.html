@@ -1,26 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Enter Course</title>
-</head>
-<body>
-    <h1>Welcome to "{{ course.title }}"</h1>
-    <p>{{ course.description }}</p>
-    
-    <h2>Materials:</h2>
-    <ul>
-        {% for material in course.material_set.all %}
-            <li>
-                <h3>{{ material.title }}</h3>
-                <p>{{ material.content }}</p>
-                <p>Document Type: {{ material.documentType }}</p>
-                <!-- Add any other material-related information -->
-            </li>
-        {% empty %}
-            <p>No materials available for this course.</p>
-        {% endfor %}
-    </ul>
+<h1>{{ course.title }}</h1>
+<!-- Other course details -->
 
-    <a href="{% url 'add_material' course.courseId %}">Add Material</a>
-</body>
-</html>
+<h2>Materials:</h2>
+<ul>
+    <!-- List existing materials -->
+    {% for material in materials %}
+    <li>
+        {{ material.title }}
+        <a href="{% url 'material_detail' materialId=material.materialId %}">View Material</a>
+        <a href="{% url 'modify_material' materialId=material.materialId %}">Modify Material</a>
+        <a href="{% url 'delete_material' materialId=material.materialId %}">Delete Material</a>
+        <!-- You can modify these links to your specific URLs for modification and deletion -->
+    </li>
+    {% endfor %}
+</ul>
+
+<!-- Button to add new material -->
+<a href="{% url 'add_material' courseId=course.courseId %}">Add Material</a>

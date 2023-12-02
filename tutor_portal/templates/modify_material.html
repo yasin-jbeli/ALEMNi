@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modify Material</title>
+</head>
+<body>
+    <h1>Modify Material</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save Changes">
+    </form>
+    <!-- Back button -->
+    <a href="{% url 'material_detail' materialId=material.materialId %}">Cancel</a>
+</body>
+</html>

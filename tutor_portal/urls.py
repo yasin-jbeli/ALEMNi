@@ -13,5 +13,8 @@ urlpatterns = [
     path('/modify_course/<int:courseId>/', views.modify_course, name='modify_course'),
     path('/enter_course/<int:courseId>/', views.enter_course, name='enter_course'),
     path('/course/<int:courseId>/add_material/', views.add_material, name='add_material'),
+    path('/material_detail/<int:materialId>/', views.material_detail, name='material_detail'),
+    path('/modify_material/<int:materialId>/', views.modify_material, name='modify_material'),
+    path('/delete_material/<int:materialId>/', views.delete_material, name='delete_material'),
 ]
 
