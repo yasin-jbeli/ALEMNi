@@ -49,3 +49,11 @@ class Grade(models.Model):
     feedback = models.TextField()
     student = models.ForeignKey(User, on_delete=models.CASCADE)
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
+
+class WebRTCSession(models.Model):
+    session_id = models.CharField(max_length=100, unique=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    sdp = models.TextField(blank=True, null=True)
+    ice_candidates = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

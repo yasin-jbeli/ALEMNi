@@ -11,5 +11,8 @@ urlpatterns = [
    path('/assignments/<int:pk>/', views.AssignmentRetrieveUpdateDeleteView.as_view(), name='assignment-detail'),
    path('/submissions/', views.SubmissionListView.as_view(), name='submission-list'),
    path('/grades/create/', views.GradeCreateView.as_view(), name='grade-create'),
+   path('/send-offer/', views.send_offer, name='send_offer'),
+   path('/send-answer/', views.send_answer, name='send_answer'),
+   path('/send-ice-candidate/', views.send_ice_candidate, name='send_ice_candidate'),
 ]
 
