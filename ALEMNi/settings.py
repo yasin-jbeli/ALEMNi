@@ -141,4 +141,4 @@ DATABASES = {
         'PORT': '5432'
     }
 }
-AUTH_USER_MODEL = 'authentification.Utilisateur'
+AUTH_USER_MODEL = 'authentification.CustomUser'
