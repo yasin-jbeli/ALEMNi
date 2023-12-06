@@ -1,8 +1,8 @@
 # forms.py (inside your app)
 
 from django import forms
-from .models import Course
-from .models import Material
+from authentification.models import Course
+from authentification.models import Material
 
 class CourseForm(forms.ModelForm):
     class Meta:

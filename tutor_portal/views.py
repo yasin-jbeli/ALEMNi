@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
-from .models import Course, Material
+from authentification.models import Course, Material
 from .forms import CourseForm
 from .forms import MaterialForm
 
