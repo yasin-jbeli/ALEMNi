@@ -11,7 +11,11 @@ from .models import Submission
 from .serializers import SubmissionSerializer
 from .models import Grade
 from .serializers import GradeSerializer
-
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Feedback
+from .serializers import FeedbackSerializer
 
 class CourseListCreateView(generics.ListCreateAPIView):
     queryset = Course.objects.all()
@@ -58,3 +62,11 @@ class GradeCreateView(generics.CreateAPIView):
     queryset = Grade.objects.all()
     serializer_class = GradeSerializer
     permission_classes = [IsAuthenticated]
+
+class FeedbackCreateView(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = FeedbackSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
