@@ -13,6 +13,7 @@ class User(models.Model):
     email = models.EmailField(unique=True)
     dateJoined = models.DateField(auto_now_add=True)
     role = models.CharField(max_length=20, choices=Roles.choices)
+    is_banned = models.BooleanField(default=False)
 
 class Course(models.Model):
     courseId = models.AutoField(primary_key=True)
@@ -57,3 +58,10 @@ class WebRTCSession(models.Model):
     ice_candidates = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+class ReportedIncident(models.Model):
+    reporter = models.ForeignKey(User, on_delete=models.CASCADE)
+    reported_user = models.ForeignKey(User, related_name='reported_user', on_delete=models.CASCADE)
+    description = models.TextField()
+    resolved = models.BooleanField(default=False)
+
