@@ -6,7 +6,6 @@ from .models import Material
 from .models import Assignment
 from .models import Submission
 from .models import Grade
-from .models import Feedback
 
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,8 +33,3 @@ class GradeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Grade
         fields = ('gradeId', 'grade', 'feedback', 'student', 'assignment')
-
-class FeedbackSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Feedback
-        fields = ['submission', 'tutor', 'feedback_text']

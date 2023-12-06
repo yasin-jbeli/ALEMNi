@@ -49,8 +49,3 @@ class Grade(models.Model):
     feedback = models.TextField()
     student = models.ForeignKey(User, on_delete=models.CASCADE)
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
-
-class Feedback(models.Model):
-    submission = models.ForeignKey(Submission, on_delete=models.CASCADE)
-    tutor = models.ForeignKey(User, on_delete=models.CASCADE)
-    feedback_text = models.TextField()
