@@ -22,14 +22,14 @@ from .serializers import (
 # Course views
 class CourseListCreateView(generics.ListCreateAPIView):
     serializer_class = CourseSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
+    #authentication_classes = [TokenAuthentication]
 
     def get_queryset(self):
-        return Course.objects.all()
+        return Course.objects.filter(tutor=self.request.user)
 
-    def get(self, request, *args, **kwargs):
-        courses = self.get_queryset()
-        return render(request, 'course_list.html', {'courses': courses})
+    def perform_create(self, serializer):
+        serializer.save(tutor=self.request.user)
 
 class CourseRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CourseSerializer
