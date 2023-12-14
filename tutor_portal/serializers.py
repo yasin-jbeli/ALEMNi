@@ -1,11 +1,11 @@
 # tutor_portal/serializers.py
 
 from rest_framework import serializers
-from .models import Course
-from .models import Material
-from .models import Assignment
-from .models import Submission
-from .models import Grade
+from authentification.models import Course
+from authentification.models import Material
+from authentification.models import Assignment
+from authentification.models import Submission
+from authentification.models import Grade
 
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:

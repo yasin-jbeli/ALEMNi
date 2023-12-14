@@ -1,10 +1,9 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-from tutor_portal.models import User
-from .serializers import UserSerializer
+from authentification.models import User
+from authentification.serializers import UserSerializer
 from administrator_dash.permissions import IsAdminOrReadOnly
-from .serializers import ReportedIncidentSerializer
-from tutor_portal.models import ReportedIncident
+from authentification.models import ReportedIncident
 
 class UserListCreateView(generics.ListCreateAPIView):
     queryset = User.objects.all()
@@ -30,13 +29,6 @@ class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
         instance.save()
         return self.partial_update(request, *args, **kwargs)
 
-class ReportedIncidentListView(generics.ListAPIView):
-    queryset = ReportedIncident.objects.filter(resolved=False)
-    serializer_class = ReportedIncidentSerializer
-
-class ResolveIncidentView(generics.UpdateAPIView):
-    queryset = ReportedIncident.objects.all()
-    serializer_class = ReportedIncidentSerializer
 
 
 

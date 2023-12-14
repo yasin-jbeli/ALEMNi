@@ -1,8 +1,8 @@
 # administration_dash/serializers.py
 
 from rest_framework import serializers
-from tutor_portal.models import User
-from tutor_portal.models import ReportedIncident
+from authentification.models import User
+from authentification.models import ReportedIncident
 
 
 class UserSerializer(serializers.ModelSerializer):

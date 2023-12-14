@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
+    "rest_framework_simplejwt",
     "authentification",
     "student_portal",
     "tutor_portal",
@@ -48,6 +50,26 @@ INSTALLED_APPS = [
     "API_module",
     'rest_framework',
 ]
+
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # Other authentication classes if needed
+    ),
+}
+
+# JWT Settings
+from datetime import timedelta
+
+SIMPJWT_ACCESS_TOKEN_LIFETIME = timedelta(days=1)  # Example: Set token expiration
+SIMPJWT_REFRESH_TOKEN_LIFETIME = timedelta(days=7)  # Refresh token expiration
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

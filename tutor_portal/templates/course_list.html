@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course List</title>
+</head>
+<body>
+    <h1>List of Courses</h1>
+    <ul>
+        {% for course in courses %}
+        <li>{{ course.title }} - {{ course.description }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Create a New Course</h2>
+    <form method="post" action="{% url 'course_list_create' %}">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title"><br>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"></textarea><br>
+        <input type="submit" value="Create">
+    </form>
+</body>
+</html>

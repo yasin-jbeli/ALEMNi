@@ -1,26 +1,37 @@
 from django.db import models
 from django.core.validators import RegexValidator
+from django.contrib.auth.models import AbstractBaseUser
 
-class Roles(models.TextChoices):
-    STUDENT='STUDENT','Student'
-    TUTOR='TUTOR','Tutor'
-    ADMINISTRATOR='ADMIN','Administrator'
-
-class User(models.Model):
+class User(AbstractBaseUser):
     userId = models.AutoField(primary_key=True)
     username = models.CharField(max_length=100, unique=True)
-    password = models.CharField(max_length=100, default='')
     email = models.EmailField(unique=True)
     dateJoined = models.DateField(auto_now_add=True)
-    role = models.CharField(max_length=20, choices=Roles.choices)
-    is_banned = models.BooleanField(default=False)
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
+
+class Tutor(User):
+    is_active = models.BooleanField(default=False)
+    #cv = models.FileField(upload_to='media/')
+
+class Student(User):
+    is_active = models.BooleanField(default=False)
+
+class Administrator(User):
+    pass
+
+class Roles(models.TextChoices):
+    STUDENT = 'STUDENT', 'Student'
+    TUTOR = 'TUTOR', 'Tutor'
+    ADMINISTRATOR = 'ADMIN', 'Administrator'
 
 class Course(models.Model):
     courseId = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     description = models.TextField()
     enrollmentCapacity = models.IntegerField()
-    tutor = models.ForeignKey(User, on_delete=models.CASCADE)
+    tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
 
 class Material(models.Model):
     materialId = models.AutoField(primary_key=True)
